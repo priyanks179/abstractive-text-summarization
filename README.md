@@ -14,7 +14,7 @@ def genrate(inp,decoder_inp):
         dec_state,p_final,coverage,attn=dec(enc_output,enc,dec_inp,inp,dec_state,coverage)
         dec_inp=torch.transpose(decoder_inp[:,i].unsqueeze(0),1,0)
         for j in range(len(torch.**argmax**(p_final,1))):
-#   using argmax to create prediction sentence
+        #   using argmax to create prediction sentence
             preds[j,i]=torch.**argmax**(p_final,1)[j] 
     return(preds,p_final,attn)
   
@@ -23,8 +23,7 @@ def genrate(inp,decoder_inp):
     # Reset gradients
     enc_optimizer.zero_grad()
     dec_optimizer.zero_grad()
-    # Sample noise and generate fake data
-#   discrim is cnn classifier that predict if sentence predicted is close to real or not
+    #   discrim is cnn classifier that predict if sentence predicted is close to real or not
     prediction = discrim(enc.embedding(pred))
     # Calculate error and backpropagate
     error = BCE_loss(prediction, ones_target(N))
