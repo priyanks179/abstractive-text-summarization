@@ -37,7 +37,9 @@ def genrate(inp,decoder_inp):
     
     
 class Cnn_discriminator(nn.Module):
+
     def __init__(self, vocab_size, embed_size,window_sizes=(3, 4, 5)):
+    
         super(CnnTextClassifier, self).__init__()
 
         self.convs = nn.ModuleList([
