@@ -33,3 +33,38 @@ def genrate(inp,decoder_inp):
     dec_optimizer.step()
     # Return error
     return loss_genrated
+    
+    
+    
+class Cnn_discriminator(nn.Module):
+    def __init__(self, vocab_size, embed_size,window_sizes=(3, 4, 5)):
+        super(CnnTextClassifier, self).__init__()
+
+        self.convs = nn.ModuleList([
+            nn.Conv2d(1, 6, [window_size, embed_size], padding=(window_size - 1, 0))
+            for window_size in window_sizes
+        ])
+
+        self.fc = nn.Linear(6 * len(window_sizes), 1)#2 is num of classes
+        #6 is no of filters
+ 
+    def forward(self, x):#x is 2,10,64
+
+        # Apply a convolution + max pool layer for each window size
+        x = torch.unsqueeze(x, 1)#2, 1, 10, 64 added 1 for channels
+        xs = []
+        for conv in self.convs:
+            x2 = F.relu(conv(x))#2, 6, 14, 1
+            x2 = torch.squeeze(x2, -1)#2, 6, 14
+            x2 = F.max_pool1d(x2, x2.size(2))#2,6,1
+            xs.append(x2)
+        x = torch.cat(xs, 2) # [2,6,3] 3 is window size
+
+        # FC
+        x = x.view(x.size(0), -1)       # [2, 6 * 3]
+        logits = self.fc(x)             # [2, 1] bcoz class is 1
+
+        # Prediction
+        pred=torch.sigmoid(logits)
+
+        return pred      
