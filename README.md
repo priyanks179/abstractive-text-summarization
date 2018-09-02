@@ -12,9 +12,9 @@ def genrate(inp,decoder_inp):
     for i in range(decoder_inp.size(1)):
         dec_state,p_final,coverage,attn=dec(enc_output,enc,dec_inp,inp,dec_state,coverage)
         dec_inp=torch.transpose(decoder_inp[:,i].unsqueeze(0),1,0)
-        for j in range(len(torch.**argmax**(p_final,1))):
+        for j in range(len(torch.argmax(p_final,1))):
         #   using argmax to create prediction sentence
-            preds[j,i]=torch.**argmax**(p_final,1)[j] 
+            preds[j,i]=torch.argmax(p_final,1)[j] 
     return(preds,p_final,attn)
   
   def train_genrator(enc_optimizer,dec_optimizer, preds):
