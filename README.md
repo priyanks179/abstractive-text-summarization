@@ -3,7 +3,6 @@
 
 def genrate(inp,decoder_inp):
 
-    
     enc_output,state=enc(inp)#encoder_output=[8,400,512] #state=([2,8,512])*2
     dec_inp=torch.ones(enc_output.size(0),1,dtype=torch.long).to(device)*2#2 for <sos>
     coverage = Variable(torch.zeros(dec.batch_size,dec.max_enc)).to(device)#8,400
@@ -19,6 +18,7 @@ def genrate(inp,decoder_inp):
     return(preds,p_final,attn)
   
   def train_genrator(enc_optimizer,dec_optimizer, preds):
+  
     N = fake_data.size(0)
     # Reset gradients
     enc_optimizer.zero_grad()
