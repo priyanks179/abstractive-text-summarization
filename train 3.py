@@ -14,7 +14,7 @@ import time
 from keras.utils import to_categorical
 
 
-device='cpu'
+device='cuda'
 dir='pointer nw 2/data/batches/merge_8'
 file_list = os.listdir(path=dir)
 
