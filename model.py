@@ -10,7 +10,7 @@ from packages.functions import num_to_var
 from torch.autograd import Variable as variable
 import time
 from collections import Counter
-device='cpu'
+device='cuda'
 
 #input_len,target_len=100,25
     
